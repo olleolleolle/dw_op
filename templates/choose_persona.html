@@ -7,7 +7,7 @@
   <table>
     {% for g in matches %}
     <tr>
-      <td><a href="{{ url_for('persona', name=g[0]) }}">{{g[0]}}</a>{% if g[1:] %} (also known as {{ g[1:]|sort|unique|join(', ') }}){% endif %}</td>
+       <td><a href="{{ url_for('persona', name=g[1]) }}">{{g[1]}}</a>{% if g[3] %} (also known as {{g[3]}}){% endif %}</td>
     </tr>
     {% endfor %}
   </table>
