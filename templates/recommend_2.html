@@ -57,6 +57,7 @@
     {% endif %}
 
     <h2>For which awards do you recommend this person?</h2>
+        
     <div class="awardslist_box">
     {% for g, gi in data['unawards'].items() %}
       <div>
@@ -80,7 +81,7 @@
     <table>
       {% for k, v in data['sendto'].items() %}
       <tr>
-        <td><input id="crown_{{k}}" name="crowns[]" value="{{k}}" type="checkbox"/></td>
+        <td><input id="crown_{{k}}" name="crowns[]" value="{{k}}" type="checkbox" checked/></td>
         <th><label for ="crown_{{k}}">{{v}}</label></th>
       </tr>
       {% endfor %}

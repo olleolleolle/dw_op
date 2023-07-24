@@ -13,7 +13,6 @@ import traceback
 import unicodedata
 import mysql.connector
 import base64
-
 from email.message import EmailMessage
 
 from google.oauth2 import service_account
@@ -21,7 +20,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from flask import Flask, flash, g, redirect, render_template, request, Response, url_for
-from flask_mail import Mail, Message
+#from flask_mail import Mail, Message
 
 from auth import User, handle_login, handle_logout, login_required
 from urllib.parse import unquote
@@ -60,6 +59,27 @@ def get_db():
         db = g._database = connect_db()
     return db
 
+def db_search_persona(cursor, name):
+    if(name.isnumeric()):
+        return do_query(cursor,"""select p_full.id, p_full.name, p_full.person_id, alt_names 
+from personae p 
+	left join (select p1.person_id, p1.id,  group_concat(p2.name, ', ') as alt_names, p1.name
+			from personae as p1
+					left join personae as p2 on p1.person_id = p2.person_id and p2.official = 0
+			where  p1.official =1 
+			group by p1.id 	) as p_full
+			on p.person_id = p_full.person_id
+WHERE id =%s """, name)
+    else:
+        return do_query(cursor,"""select p_full.id, p_full.name, p_full.person_id, alt_names 
+from personae p 
+	left join (select p1.person_id, p1.id,  group_concat(p2.name, ', ') as alt_names, p1.name
+			from personae as p1
+					left join personae as p2 on p1.person_id = p2.person_id and p2.official = 0
+			where  p1.official =1 
+			group by p1.id 	) as p_full
+			on p.person_id = p_full.person_id
+WHERE p.name like %s  or p.search_name like %s """, '%{}%'.format(name), '%{}%'.format(name))
 
 def db_search_persona(cursor, name):
     if(name.isnumeric()):
@@ -708,7 +728,7 @@ Date | Recommender's Real Name | Recommender's SCA Name | Recommender's Email Ad
     
             state = 4
 
-    return render_template(
+ return render_template(
         'recommend_{}.html'.format(state),
         data=data
     )

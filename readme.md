@@ -11,7 +11,7 @@ source ./venv/bin/activate
 
 pip install -r requirements.txt
 
-flask --app viewer run
+flask --app viewer.py --debug run
 ```
 
 ### Alternative for `flask --app viewer run`:
