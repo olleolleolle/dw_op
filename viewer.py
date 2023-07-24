@@ -728,7 +728,7 @@ Date | Recommender's Real Name | Recommender's SCA Name | Recommender's Email Ad
     
             state = 4
 
- return render_template(
+    return render_template(
         'recommend_{}.html'.format(state),
         data=data
     )
