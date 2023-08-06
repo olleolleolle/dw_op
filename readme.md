@@ -23,3 +23,7 @@ export FLASK_ENV=development
 
 flask run
 ```
+
+# Local docker use
+docker-compose up
+see website on http://127.0.0.1:5000/
