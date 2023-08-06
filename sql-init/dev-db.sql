@@ -7,13 +7,6 @@
 -- Server version: 5.6.51-log
 -- PHP Version: 8.1.16
 
-
---
--- Database: `wiifmqgdwop`
---
-CREATE DATABASE IF NOT EXISTS `wiifmqgdwop` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `wiifmqgdwop`;
-
 -- --------------------------------------------------------
 
 --
@@ -39,26 +32,22 @@ CREATE TABLE `awards` (
 -- Dumping data for table `awards`
 --
 
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`, `last_updated`) VALUES
-(10096, 17, 3770, 197, 1198, '2023-07-01', NULL, NULL, NULL, NULL, 'Court report received 2023-07-19', '2023-07-25 19:03:51');
-
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9499,4,3623,243,1108,'2018-10-04',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9500,340,3624,18,1100,'1990-04-20',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9501,1,3625,244,1114,'2012-08-04',NULL,NULL,NULL,' \n From the scribe: Apologies for missing the scroll/token information here - in my distraction at the end of court, I failed to retrieve my notes and am working from another copy of the agenda and my memory.','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9502,1,3626,243,1095,'2020-02-10',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9503,42,3627,18,1095,'2014-09-13',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9504,40,3628,18,1095,'2006-02-11
-',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9505,1,3629,243,1110,'2008-10-03',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9506,1,3630,243,1108,'2016-11-17',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9507,5,3631,244,1104,'2004-09-15',106,NULL,NULL,'Calligraphy and Illumination made by: Agned Odygd \n Scroll not given,','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9508,481,3632,130,1092,'2039-01-19',NULL,NULL,NULL,' \n Baron Willian Gifford has decided to keep the scroll and token until he is able to present them personally','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9509,260,3633,106,1114,'2022-01-32',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9510,6,3634,167,1106,'2013-06-25',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9511,297,2418,134,1,'2017-04-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9512,503,2418,230,1,'2021-03-27',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9513,31,2418,230,1,'1985-03-25',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment` `provenance`) VALUES (9514,505,1545,230,1,'1999-09-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9499,4,3623,243,1108,'2018-10-04',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9500,340,3624,18,1100,'1990-04-20',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9501,1,3625,244,1114,'2012-08-04',NULL,NULL,NULL,' \n From the scribe: Apologies for missing the scroll/token information here - in my distraction at the end of court, I failed to retrieve my notes and am working from another copy of the agenda and my memory.','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9502,1,3626,243,1095,'2020-02-10',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9503,42,3627,18,1095,'2014-09-13',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9504,40,3628,18,1095,'2006-02-11',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9505,1,3629,243,1110,'2008-10-03',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9506,1,3630,243,1108,'2016-11-17',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9507,5,3631,244,1104,'2004-09-15',106,NULL,NULL,'Calligraphy and Illumination made by: Agned Odygd \n Scroll not given,','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9508,481,3632,130,1092,'2039-01-19',NULL,NULL,NULL,' \n Baron Willian Gifford has decided to keep the scroll and token until he is able to present them personally','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9509,260,3633,106,1114,'2022-01-32',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9510,6,3634,167,1106,'2013-06-25',NULL,NULL,NULL,' \n ','OP crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9511,297,2418,134,1,'2017-04-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9512,503,2418,230,1,'2021-03-27',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9513,31,2418,230,1,'1985-03-25',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9514,505,1545,230,1,'1999-09-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
 
 
 -- --------------------------------------------------------
@@ -2130,12 +2119,9 @@ CREATE TABLE `people` (
 -- Dumping data for table `people`
 --
 
-INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`, `last_name`, `first_name`, `blazon`, `emblazon`, `notes`) VALUES
-
 INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (1557,'Summer','April',3,'Azure, gulles','',NULL);
 INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (2489,'Grootten','Tamara',3,'','',NULL);
-INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (3226,'Jonsson
-','Erik',6,'','','');
+INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (3226,'Jonsson','Erik',6,'','','');
 INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (3227,'','',6,'','','');
 INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (3228,NULL,NULL,6,'','','');
 INSERT INTO `people` (`id`, `surname`, `forename`, `region_id`,`blazon`,`emblazon`,`notes`) VALUES (3229,'','',6,'','','');
@@ -2168,22 +2154,21 @@ CREATE TABLE `personae` (
 -- Dumping data for table `personae`
 --
 
-INSERT INTO `personae` (`id`, `name`, `person_id`, `official`, `search_name`) VALUES
-INSERT INTO "personae" VALUES (1545,'John The Green',1557,1,'');
-INSERT INTO "personae" VALUES (2418,'íone',2489,1,'ione ionne');
-INSERT INTO "personae" VALUES (3623,'Thomas',3226,1,'');
-INSERT INTO "personae" VALUES (3624,'Sara of Nordmark',3227,1,'');
-INSERT INTO "personae" VALUES (3625,'Yda',3228,1,'');
-INSERT INTO "personae" VALUES (3626,'Anna S. Þorvaldsdóttir',3229,1,'Anna S. Thorvaldsdóttir  Anna S. Thorvaldsdottir');
-INSERT INTO "personae" VALUES (3627,'Tiffany',3230,1,'');
-INSERT INTO "personae" VALUES (3628,'Seamus',3231,1,'');
-INSERT INTO "personae" VALUES (3629,'Sven The Red',3232,1,'');
-INSERT INTO "personae" VALUES (3630,'Hildegard',3233,1,'');
-INSERT INTO "personae" VALUES (3631,'James',3234,1,'');
-INSERT INTO "personae" VALUES (3632,'Eduard',3235,1,'Edward');
-INSERT INTO "personae" VALUES (3633,'Einli',3236,1,'');
-INSERT INTO "personae" VALUES (3634,'Florence',3237,1,'');
-I
+INSERT INTO `personae` VALUES (1545,'John The Green',1557,1,'');
+INSERT INTO `personae` VALUES (2418,'íone',2489,1,'ione ionne');
+INSERT INTO `personae` VALUES (3623,'Thomas',3226,1,'');
+INSERT INTO `personae` VALUES (3624,'Sara of Nordmark',3227,1,'');
+INSERT INTO `personae` VALUES (3625,'Yda',3228,1,'');
+INSERT INTO `personae` VALUES (3626,'Anna S. Þorvaldsdóttir',3229,1,'Anna S. Thorvaldsdóttir  Anna S. Thorvaldsdottir');
+INSERT INTO `personae` VALUES (3627,'Tiffany',3230,1,'');
+INSERT INTO `personae` VALUES (3628,'Seamus',3231,1,'');
+INSERT INTO `personae` VALUES (3629,'Sven The Red',3232,1,'');
+INSERT INTO `personae` VALUES (3630,'Hildegard',3233,1,'');
+INSERT INTO `personae` VALUES (3631,'James',3234,1,'');
+INSERT INTO `personae` VALUES (3632,'Eduard',3235,1,'Edward');
+INSERT INTO `personae` VALUES (3633,'Einli',3236,1,'');
+INSERT INTO `personae` VALUES (3634,'Florence',3237,1,'');
+
 
 -- --------------------------------------------------------
 
@@ -2325,13 +2310,6 @@ CREATE TABLE `scribes` (
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `scribes`
---
-
-INSERT INTO `scribes` (`id`, `name`, `description`) VALUES
-(1, 'AElfwynn', ''),
-
 -- --------------------------------------------------------
 
 --
@@ -2466,7 +2444,6 @@ ALTER TABLE `award_categories`
 ALTER TABLE `awards`
   ADD CONSTRAINT `awards_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `award_types` (`id`),
   ADD CONSTRAINT `awards_ibfk_2` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
-  ADD CONSTRAINT `awards_ibfk_3` FOREIGN KEY (`scribe_id`) REFERENCES `scribes` (`id`),
   ADD CONSTRAINT `awards_ibfk_4` FOREIGN KEY (`crown_id`) REFERENCES `crowns` (`id`),
   ADD CONSTRAINT `awards_ibfk_5` FOREIGN KEY (`persona_id`) REFERENCES `personae` (`id`),
   ADD CONSTRAINT `awards_ibfk_6` FOREIGN KEY (`scroll_status_id`) REFERENCES `scroll_status` (`id`);
@@ -2483,7 +2460,3 @@ ALTER TABLE `award_types`
 ALTER TABLE `people`
   ADD CONSTRAINT `people_ibfk_1` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
