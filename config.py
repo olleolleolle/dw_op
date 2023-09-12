@@ -2,8 +2,8 @@ import os.path
 
 DB_USER = 'op'
 DB_PWD = 'op'
-DB_DATABASE = 'drachdb2'
-DB_HOST ='127.0.0.1'
+DB_DATABASE = 'drachdb'
+DB_HOST ='db'
 
 DISABLE_AUTH = False
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -30,16 +30,4 @@ USERS = (
     )
 )
 ARMORIAL_PATH="./arms"
-GOOGLE_CRED = {
-  "type":,
-  "project_id":,
-  "private_key_id":,
-  "private_key":,
-  "client_email":,
-  "client_id":,                  
-  "auth_uri":,                   
-  "token_uri":,                  
-  "auth_provider_x509_cert_url":,
-  "client_x509_cert_url":       ,
-  "universe_domain":,"
-}
+GOOGLE_CRED = {}
