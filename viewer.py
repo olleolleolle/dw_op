@@ -439,6 +439,32 @@ def get_crowns_list(c):
 def stripped(d, k):
     return d.get(k, default='').strip() or None
 
+@app.route('/startsearch', methods=['GET', 'POST'])
+def startsearch():
+  data = {}
+  data["method"]=request
+  try:
+    print("startsearch")
+    if request.method == 'POST':
+        data['button']=request.method
+        print("post")
+        submit=stripped(request.form,'submit')
+        print(submit)
+        if submit == 'Search':
+            print("search")
+            data["route"]="search"
+            return search()
+        elif submit == 'Recommend':
+            print("recommend")
+            data["route"]="recommend"
+            return recommend()
+  except Exception as e:
+      data["ex"]=e.traceback.format_exc()
+      return render_template('exception.html',data=data)
+  
+  data["request"] = request.form
+  return render_template('exception.html',data=data)
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -511,7 +537,7 @@ def recommend():
 
         if state == 0 or state == 6:
            # first page of the form. Check if the person recommended already exists in the database
-            persona_search = normalize(stripped(request.form, 'persona_search'))
+            persona_search = normalize(stripped(request.form, 'persona'))
             c = get_db().cursor()
             if state == 6:
                 data['direct']=True

@@ -8,14 +8,15 @@
 
       <p>The Drachenwald Order of Precedence lists awards and honors given by the crowned heads in the realm of Drachenwald, and those awards and honors held by those who currently live in Drachenwald.</p>
 
-      <form action="{{ url_for('search') }}" method="post">
+      <form action="{{ url_for('startsearch') }}" method="post">
 
         <div class="mt-3">
           <input id="persona" name="persona" type="text" class="form-control shadow" placeholder="Search SCA name...">
         </div>
         <div class="mt-3 mb-5">
-          <button class="btn btn-primary px-sm-5 mx-2 shadow" id="submit" type="submit" value="Search">Search</button>
-          <button class="btn btn-primary px-sm-5 mx-2 shadow" id="submit" type="submit" value="Recommend">Recommend</button>
+              <input type="hidden" name="state" value="0"/>
+          <button class="btn btn-primary px-sm-5 mx-2 shadow" id="submit" name="submit" type="submit" value="Search">Search</button>
+          <button class="btn btn-primary px-sm-5 mx-2 shadow" id="submit" name="submit" type="submit" value="Recommend">Recommend</button>
         </div>
 
       </form>
