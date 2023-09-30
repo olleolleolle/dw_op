@@ -109,7 +109,7 @@ docker ps # show running containers
 docker exec -it dw_op_db_1 bash # get a Bash shell into the container
 ```
 
-If you wish to remove the whole dataset:
+If you wish to remove the whole dataset, so that next time you start Docker Compose, it is reinitialized from sql-init files.
 
 ```shell
 docker volume rm dw_op_data
