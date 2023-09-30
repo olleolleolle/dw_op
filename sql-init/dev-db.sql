@@ -56,10 +56,10 @@ INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `da
 INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9508,481,3632,130,1092,'2039-01-19',NULL,NULL,NULL,' \n Baron Willian Gifford has decided to keep the scroll and token until he is able to present them personally','OP crisis management 2022');
 INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9509,260,3633,106,1114,'2022-01-32',NULL,NULL,NULL,' \n ','OP crisis management 2022');
 INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9510,6,3634,167,1106,'2013-06-25',NULL,NULL,NULL,' \n ','OP crisis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9511,297,2418,134,1,'2017-04-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9512,503,2418,230,1,'2021-03-27',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9513,31,2418,230,1,'1985-03-25',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
-INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9514,505,1545,230,1,'1999-09-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of cirsis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9511,297,2418,134,1,'2017-04-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9512,503,2418,230,1,'2021-03-27',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9513,31,2418,230,1,'1985-03-25',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of crisis management 2022');
+INSERT INTO `awards` (`id`, `type_id`, `persona_id`, `crown_id`, `event_id`, `date`, `scribe_id`, `scroll_status_id`, `scroll_updated`, `scroll_comment`, `provenance`) VALUES (9514,505,1545,230,1,'1999-09-09',NULL,NULL,NULL,'','awards received out of kingdom, imported as part of crisis management 2022');
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE `award_types` (
   `open` int(11) DEFAULT NULL,
   `repeatable` tinyint(1) DEFAULT NULL,
   `recommendable` tinyint(1) DEFAULT NULL,
-  `category_id` int(11) DEFAULT NULL COMMENT 'category for the awart type.  Influences the recommendation form',
+  `category_id` int(11) DEFAULT NULL COMMENT 'category for the award type.  Influences the recommendation form',
   `tooltip` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
