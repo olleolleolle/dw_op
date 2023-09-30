@@ -53,6 +53,10 @@ The website will be served on http://0.0.0.0:5000.
 
 ### Updating your website
 
+<details>
+
+<summary>What it looks like when troubleshooting</summary>
+
 ```shell
 askja:dw_op hennar$ ls
 __pycache__		editor.py		requirements.txt	templates
@@ -97,6 +101,8 @@ askja:dw_op hennar$ docker volume rm dw_op_data
 dw_op_data
 askja:dw_op hennar$ 
 ```
+
+</details>
 
 ## Diagnose and troubleshoot
 
