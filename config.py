@@ -7,7 +7,7 @@ DB_HOST ='db'
 
 DISABLE_AUTH = False
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-DB_PATH = os.path.join(BASE_DIR, 'op.sqlite')
+DB_PATH = os.path.join(BASE_DIR, 'op.sqlite') # only used in the editor.py
 
 USERS = (
     (
