@@ -48,10 +48,12 @@ flask run
 docker-compose up
 ```
 
-The website can be found at 127.0.0.1:5000.
+The website will be served on http://0.0.0.0:5000.
 
 
-### updating your website
+### Updating your website
+
+```shell
 askja:dw_op hennar$ ls
 __pycache__		editor.py		requirements.txt	templates
 auth.py			editor.wsgi		shield.svg		transferdb.py
@@ -94,7 +96,7 @@ Error response from daemon: remove dw_op_data: volume is in use - [7a063fbb8acf3
 askja:dw_op hennar$ docker volume rm dw_op_data
 dw_op_data
 askja:dw_op hennar$ 
-
+```
 
 ## Diagnose and troubleshoot
 
