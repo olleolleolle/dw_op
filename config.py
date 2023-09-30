@@ -34,7 +34,7 @@ ARMORIAL_PATH="/home/wiifmqg/dw_op/static/images/arms"
 GOOGLE_CRED = {
   "type": "service_account",
   "project_id": "dw-order-of-precedence",
-  "private_key_id": ""'
+  "private_key_id": "",
   "private_key": "",
   "client_email": "artificial-deputy-for-the-orde@dw-order-of-precedence.iam.gserviceaccount.com",
   "client_id": "111021806773359996540",
