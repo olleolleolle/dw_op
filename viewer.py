@@ -505,7 +505,7 @@ def recommend():
 
         if state == 0 or state == 6:
            # first page of the form. Check if the person recommended already exists in the database
-            persona_search = normalize(stripped(request.form, 'persona_search'))
+            persona_search = normalize(stripped(request.form, 'persona'))
             origin = normalize(stripped(request.form, 'origin'))
             c = get_db().cursor()
             data['origin'] = origin
