@@ -226,7 +226,7 @@ function makeDataLists(jtabs, table_data) {
       for (const id in join_data) {
         let opt = dl.appendChild(document.createElement('option'));
         opt.value = join_data[id][jcol];
-        opt.setAttribute('data-id', id);
+        opt.dataset.id = id;
       }
     }
   }
@@ -234,7 +234,7 @@ function makeDataLists(jtabs, table_data) {
 
 function makeHeaders(columnNames, spec, jtabs, thead) {
   let thead_row = thead.insertRow();
-  thead_row.setAttribute('data-sort-method', 'thead');
+  thead_row.dataset.sortMethod = 'thead';
 
   // headers for table columns
   for (let col of columnNames) {
@@ -247,7 +247,7 @@ function makeHeaders(columnNames, spec, jtabs, thead) {
 
      if (col === 'id') {
       // id column is default sort column
-      th.setAttribute('data-sort-default', '');
+      th.dataset.sortDefault = '';
     }
   }
 
@@ -287,7 +287,7 @@ function isEditRowValid() {
 
 function isEditRowChanged() {
   for (let i of document.getElementsByClassName('edit_row input')) {
-    if (i.value !== i.getAttribute('data-original_value')) {
+    if (i.value !== i.dataset.original_value) {
       return true;
     }
   }
@@ -351,7 +351,7 @@ function updateButtons() {
 function valuesFromInsertRow() {
   let values = {};
   for (let i of document.getElementsByClassName('insert_row input')) {
-    const col = i.getAttribute('data-input_for');
+    const col = i.dataset.input_for;
     if (col) {
       values[col] = i.value;
     }
@@ -362,7 +362,7 @@ function valuesFromInsertRow() {
 function valuesFromEditRow() {
   let values = {};
   for (let i of document.getElementsByClassName('edit_row input')) {
-    const col = i.getAttribute('data-input_for');
+    const col = i.dataset.input_for;
     if (col) {
       values[col] = i.value;
     }
@@ -585,7 +585,7 @@ class View {
       let input = td.appendChild(document.createElement('input'));
       input.type = 'text';
       input.id = insertCellId(col);
-      input.setAttribute('data-input_for', col);
+      input.dataset.input_for = col;
       input.classList.add('insert_row', 'input');
       input.addEventListener('input', updateButtons);
     }
@@ -614,7 +614,7 @@ class View {
   // TODO: binary search
           for (let o of dl.options) {
             if (o.value === this.value) {
-              on_input.value = o.getAttribute('data-id');
+              on_input.value = o.dataset.id;
               this.setCustomValidity('');
               updateButtons();
               return;
@@ -682,9 +682,9 @@ class View {
       let input = td.appendChild(document.createElement('input'));
       input.type = 'text';
       input.value = row[col];
-      input.setAttribute('data-original_value', input.value);
+      input.dataset.original_value = input.value;
       input.id = editCellId(col);
-      input.setAttribute('data-input_for', col);
+      input.dataset.input_for = col;
       input.classList.add('edit_row', 'input');
       input.addEventListener('input', updateButtonsEdit);
     }
@@ -705,7 +705,7 @@ class View {
         let input = td.appendChild(document.createElement('input'));
         input.type = 'text';
         input.value = join_row[jcol];
-        input.setAttribute('data-original_value', input.value);
+        input.dataset.original_value = input.value;
         input.autocomplete = 'on';
         input.id = editJoinCellId(j['join'], jcol);
         input.classList.add('edit_row', 'input');
@@ -716,7 +716,7 @@ class View {
   // TODO: binary search
           for (let o of dl.options) {
             if (o.value === this.value) {
-              on_input.value = o.getAttribute('data-id');
+              on_input.value = o.dataset.id;
               this.setCustomValidity('');
               updateButtonsEdit();
               return;
