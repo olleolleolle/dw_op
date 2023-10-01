@@ -51,7 +51,7 @@ def connect_db():
 
         return db
     except Exception as e:
-        raise ("error: %s - %s - %s" % (dbhost, database, e)) 
+        raise ("error: %s - %s - %s" % (dbhost, mysqldb, e))
 
 def get_db():
     db = getattr(g, '_database', None)
