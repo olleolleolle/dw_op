@@ -93,12 +93,11 @@ def logout():
 def front():
     last_updated = "unknown date"
     c = get_db().cursor()
-    other = do_query(c, 'SELECT max(last_updated) FROM awards where last_updated is not Null ')
+    date_format = '%d %M %Y' # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+    other = do_query(c, 'SELECT DATE_FORMAT(max(last_updated), \'%s\') FROM awards WHERE last_updated IS NOT NULL' % date_format)
     
     if other:
-        dt = other[0][0]
-        last_updated = dt.strftime("%d %B %Y")
-
+        last_updated = other[0][0]
     return render_template(
         'front.html',
         last_updated=last_updated
