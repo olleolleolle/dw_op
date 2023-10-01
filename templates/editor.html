@@ -43,9 +43,9 @@
     }
   </style>
 
-  <script src="{{ url_for('static', filename='js/mvc.js') }}" type="application/javascript"></script>
+  <script src="{{ url_for('static', filename='js/mvc.js') }}"></script>
 
-  <script language="javascript">
+  <script>
     window.addEventListener('load', async () => {
       window.app = {};
       window.app.model = new {{model_type}}();
