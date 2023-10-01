@@ -301,7 +301,7 @@ def reigns():
 @app.route('/armorial', methods=['GET'])
 def armorial():
     c = get_db().cursor()
-    results = do_query(c, 'SELECT personae.name, people.emblazon FROM people JOIN personae ON personae.person_id = people.id WHERE people.emblazon IS NOT NULL AND personae.official = 1 ORDER BY personae.name')
+    results = do_query(c, 'SELECT personae.name, people.emblazon FROM people JOIN personae ON personae.person_id = people.id WHERE people.emblazon IS NOT NULL AND people.emblazon != \'\' AND personae.official = 1 ORDER BY personae.name')
 
     return render_template(
         'armorial.html',
