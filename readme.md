@@ -50,6 +50,14 @@ docker-compose up
 
 The website will be served on http://0.0.0.0:5000.
 
+The database runs on a MariaDB instance. You can print its version like:
+
+```shell
+$ docker exec -ti dw_op-db-1  mariadb --version
+mariadb from 11.1.2-MariaDB, client 15.2 for debian-linux-gnu (x86_64) using  EditLine wrapper
+```
+
+
 
 ### Updating your website
 
@@ -119,4 +127,24 @@ If you wish to remove the whole dataset, so that next time you start Docker Comp
 
 ```shell
 docker volume rm dw_op_data
+```
+
+To interact with the database using the normal CLI interface:
+
+```shell
+$ docker exec -ti dw_op-db-1  mariadb -uop -pop
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 11.1.2-MariaDB-1:11.1.2+maria~ubu2204 mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> USE drachdb;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [drachdb]>
 ```
