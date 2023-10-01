@@ -395,9 +395,9 @@ def match_persona(c, name):
 
 def db_search_persona(cursor, name):
     if(name.isnumeric()):
-        return do_query(cursor,"""SELECT DISTINCT p_full.id, p_full.name, p_full.person_id, substring(alt_names, 1, length(alt_names) - 1) AS alt_names
+        return do_query(cursor,"""SELECT DISTINCT p_full.id, p_full.name, p_full.person_id, alt_names
 FROM personae p
-	LEFT JOIN (SELECT p1.person_id, p1.id, group_concat(p2.name, ',') AS alt_names, p1.name
+	LEFT JOIN (SELECT p1.person_id, p1.id, group_concat(p2.name SEPARATOR ', ') AS alt_names, p1.name
 			FROM personae AS p1
 					LEFT JOIN personae AS p2 ON p1.person_id = p2.person_id AND p2.official = 0
 			WHERE p1.official = 1
@@ -405,9 +405,9 @@ FROM personae p
 			ON p.person_id = p_full.person_id
 WHERE p.id =%s ORDER BY p_full.name""", name)
     else:
-        return do_query(cursor,"""SELECT DISTINCT p_full.id, p_full.name, p_full.person_id, substring(alt_names, 1, length(alt_names) - 1) AS alt_names
+        return do_query(cursor,"""SELECT DISTINCT p_full.id, p_full.name, p_full.person_id, alt_names
 FROM personae p
-	LEFT JOIN (SELECT p1.person_id, p1.id, group_concat(p2.name, ',') AS alt_names, p1.name
+	LEFT JOIN (SELECT p1.person_id, p1.id, group_concat(p2.name SEPARATOR ', ') AS alt_names, p1.name
 			FROM personae AS p1
 					LEFT JOIN personae AS p2 ON p1.person_id = p2.person_id AND p2.official = 0
 			WHERE p1.official = 1
