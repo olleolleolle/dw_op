@@ -71,6 +71,8 @@ def do_query(cursor, query, *params):
     cursor.execute(query, params)
     return [tuple(r) for r in cursor.fetchall()]
 
+def do_query_value(cursor, query, *params):
+    return do_query(cursor, query, *params)[0][0]
 
 @app.errorhandler(Exception)
 def handle_exception(ex):
@@ -236,7 +238,7 @@ def crown():
 
     c = get_db().cursor()
 
-    crown = do_query(c, 'SELECT name FROM crowns WHERE id = %s', crown_id)[0][0]
+    crown = do_query_value(c, 'SELECT name FROM crowns WHERE id = %s', crown_id)
 
     results = do_query(c, 'SELECT personae.name, award_types.name, awards.date, crowns.name, events.name FROM personae JOIN awards ON personae.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id JOIN crowns ON awards.crown_id = crowns.id WHERE crowns.id = %s ORDER BY awards.date, personae.name, award_types.name', crown_id)
 
@@ -427,10 +429,10 @@ def get_last_updated():
     c = get_db().cursor()
     # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
     date_format = '%d %M %Y' # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
-    other = do_query(c, 'SELECT DATE_FORMAT(max(last_updated), \'%s\') FROM awards WHERE last_updated IS NOT NULL' % date_format)
+    other = do_query_value(c, 'SELECT DATE_FORMAT(max(last_updated), \'%s\') FROM awards WHERE last_updated IS NOT NULL' % date_format)
 
     if other:
-       return other[0][0]
+       return other
     else:
         return "unknown date"
 
@@ -539,7 +541,7 @@ def recommend():
                 persona_id = -1
             
             else:
-                data['persona'] = do_query(c, 'SELECT name FROM personae WHERE id =  %s', persona_id)[0][0]
+                data['persona'] = do_query_value(c, 'SELECT name FROM personae WHERE id =  %s', persona_id)
                 data['awards'] = do_query(c, 'SELECT award_types.name, awards.date, award_types.precedence FROM personae AS p1 JOIN personae AS p2 ON p1.person_id = p2.person_id JOIN awards ON p2.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id  WHERE p1.id = %s ORDER BY awards.date, award_types.name', persona_id)
             unawards_query = '''SELECT award_types.id, award_types.name, CASE award_types.group_id WHEN 1 THEN 2 ELSE award_types.group_id END AS group_id, award_types.precedence, tooltip
                                 FROM award_types 
