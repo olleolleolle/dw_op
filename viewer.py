@@ -91,16 +91,9 @@ def logout():
 
 @app.route('/')
 def front():
-    last_updated = "unknown date"
-    c = get_db().cursor()
-    date_format = '%d %M %Y' # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
-    other = do_query(c, 'SELECT DATE_FORMAT(max(last_updated), \'%s\') FROM awards WHERE last_updated IS NOT NULL' % date_format)
-    
-    if other:
-        last_updated = other[0][0]
     return render_template(
         'front.html',
-        last_updated=last_updated
+        last_updated=get_last_updated()
     )
 
 
@@ -430,6 +423,16 @@ def throw_if(*args):
 def get_crowns_list(c):
     return do_query(c, 'SELECT id, name FROM crowns ORDER BY name')
 
+def get_last_updated():
+    c = get_db().cursor()
+    # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+    date_format = '%d %M %Y' # https://dev.mysql.com/doc/refman/8.0/en/date-and-time-functions.html#function_date-format
+    other = do_query(c, 'SELECT DATE_FORMAT(max(last_updated), \'%s\') FROM awards WHERE last_updated IS NOT NULL' % date_format)
+
+    if other:
+       return other[0][0]
+    else:
+        return "unknown date"
 
 def stripped(d, k):
     return d.get(k, default='').strip() or None
@@ -468,7 +471,8 @@ def search():
     crowns = get_crowns_list(get_db().cursor())
     return render_template(
         'search.html',
-        crowns=crowns
+        crowns=crowns,
+        last_updated=get_last_updated()
     )
 
 
