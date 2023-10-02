@@ -182,7 +182,11 @@ def awards():
 
     if request.method == 'POST':
         a_ids = [int(v) for v in request.form if v.isdigit()]
-        results = do_query(c, 'SELECT personae.name, award_types.name, awards.date, crowns.name, events.name FROM awards JOIN personae ON awards.persona_id = personae.id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE award_types.id IN ({}) ORDER BY awards.date, personae.name, award_types.name'.format(','.join(['%s'] * len(a_ids))), *a_ids)
+        if len(a_ids) == 0:
+            flash('Please choose at least one award type.', 'info')
+            results = list()
+        else:
+            results = do_query(c, 'SELECT personae.name, award_types.name, awards.date, crowns.name, events.name FROM awards JOIN personae ON awards.persona_id = personae.id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE award_types.id IN ({}) ORDER BY awards.date, personae.name, award_types.name'.format(','.join(['%s'] * len(a_ids))), *a_ids)
 
     return render_template(
         'awards.html',
