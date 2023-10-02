@@ -9,7 +9,7 @@
     <meta property="og:image" content="{{ url_for('static', filename='images/default-banner.jpg') }}" />
     <meta property="og:title" content="{{title_string}}" />
 
-    {% if config.ENV == 'development' %}
+    {% if config.DEBUG %}
 
     <meta name="robots" content="noindex">
 
@@ -43,7 +43,7 @@
 
     <header id="header">
 
-      {% if config.ENV == 'development' %}
+      {% if config.DEBUG %}
 
         <div class="bg-warning">
           <div class="container text-center">

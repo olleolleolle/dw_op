@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Something went wrong!</h1>
 
-{% if config.ENV == 'development' %}
+{% if config.DEBUG %}
 <pre>{{ ex }}</pre>
 {% endif %}
 
