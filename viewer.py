@@ -509,20 +509,23 @@ def recommend():
         state = request.form.get('state', default=0, type=int)
 
         if state == 0 or state == 6:
-           # first page of the form. Check if the person recommended already exists in the database
-            persona_search = normalize(stripped(request.form, 'persona'))
-            origin = normalize(stripped(request.form, 'origin'))
-            c = get_db().cursor()
-            data['origin'] = origin
-            if origin=="persona":
-                data['direct']=True
-                #persona_search = normalize(stripped(request.form, 'persona_search'))
+            # first page of the form. Check if the person recommended already exists in the database
+            if stripped(request.form, 'persona') is None:
+                flash('You must specify a persona.', 'info')
+            else:
+                persona_search = normalize(stripped(request.form, 'persona'))
+                origin = normalize(stripped(request.form, 'origin'))
+                c = get_db().cursor()
+                data['origin'] = origin
+                if origin=="persona":
+                    data['direct']=True
+                    #persona_search = normalize(stripped(request.form, 'persona_search'))
 
-            rst=db_search_persona(c,persona_search)
-            data['matches'] = rst
-            data['award_types'] = award_types
-            data['branches'] = branches
-            state = 1
+                rst=db_search_persona(c,persona_search)
+                data['matches'] = rst
+                data['award_types'] = award_types
+                data['branches'] = branches
+                state = 1
         elif state == 1:
            #2nd page of the form: confirm the person in the db (or ask for name). Get type or recommendation and crown         
             c = get_db().cursor()
