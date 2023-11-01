@@ -11,7 +11,6 @@ import sqlite3
 import textwrap
 import traceback
 import unicodedata
-import mysql.connector
 import base64
 
 from email.message import EmailMessage
@@ -20,9 +19,8 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from flask import Flask, flash, g, redirect, render_template, request, Response, url_for
+from flask import Flask, Blueprint, flash, g, redirect, render_template, request, Response, url_for
 
-# from auth import User, handle_login, handle_logout, login_required
 from urllib.parse import unquote
 
 # TODO: Figure out how this Blueprints thing works
@@ -35,27 +33,37 @@ REC_CSV_TRANS = str.maketrans({
     '\'': None
 })
 
+from viewer.blueprints.auth import login_required, User
+
 def stripped(d, k):
     return d.get(k, default='').strip() or None
 
+from viewer.db import get_db
+
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY=os.urandom(128),
         DEBUG=True,
     )
     
+    from viewer.blueprints.auth import auth
     app.register_blueprint(auth)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
+        # app.config.from_pyfile('config.py', silent=False)
+        from viewer.config import ProductionConfig
+        app.config.from_object(ProductionConfig())
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    app.config['USERS'] = { x[0]: User(*x) for x in app.config['USERS'] }
+    app.config['USERS'] = { x[0]: User(*x) for x in app.config.get('USERS', []) }
+
+    from . import db
+    db.init_app(app)
 
     # ensure the instance folder exists
     try:
@@ -72,12 +80,6 @@ def create_app(test_config=None):
     @app.route('/login', methods=['GET', 'POST'])
     def login():
       return handle_login(lambda x: None, 'front')
-
-
-    @app.route('/logout')
-    @auth.login_required
-    def logout():
-      return handle_logout(lambda x: None)
 
 
     @app.route('/')
@@ -113,7 +115,7 @@ def create_app(test_config=None):
         if emblazon:
             emblazon = url_for('static', filename='images/arms/' + emblazon)
 
-        awards = do_query(c, 'SELECT DISTINCT p2.name, award_types.name, awards.date, crowns.name, events.name, award_types.precedence FROM personae AS p1 JOIN personae AS p2 ON p1.person_id = p2.person_id JOIN awards ON p2.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE p1.name = %s ORDER BY awards.date, award_types.name', uname)
+        awards = do_query(c, 'SELECT DISTINCT p1.name, award_types.name, awards.date, crowns.name, events.name, award_types.precedence FROM personae AS p1 JOIN personae AS p2 ON p1.person_id = p2.person_id JOIN awards ON p2.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE p1.name = %s ORDER BY awards.date, award_types.name', uname)
         highest= do_query(c, 'SELECT DISTINCT p2.name, award_types.name, awards.date, crowns.name, events.name, award_types.precedence FROM personae AS p1 JOIN personae AS p2 ON p1.person_id = p2.person_id JOIN awards ON p2.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id JOIN events ON awards.event_id = events.id LEFT OUTER JOIN crowns ON awards.crown_id = crowns.id WHERE p1.name = %s ORDER BY award_types.precedence desc, awards.date Limit 1', uname)
 
         return render_template(
@@ -611,13 +613,6 @@ def create_app(test_config=None):
         data["hier"]="========================="
         return render_template('recommend_fail.html',data=data)
 
-    @app.teardown_appcontext
-    def close_db(exception):
-        db = getattr(g, '_database', None)
-        if db is not None:
-            db.close()
-
-
     # JSON API starts here
     @app.route('/api/tables', methods=['GET'])
     @login_required
@@ -698,27 +693,6 @@ def create_app(test_config=None):
 
 
     return app
-
-
-def connect_db():
-    try:
-        mysqluser = app.config['DB_USER']
-        mysqlpwd = app.config['DB_PWD']
-        mysqldb = app.config['DB_DATABASE']
-        dbhost = app.config['DB_HOST']
-    
-        db = mysql.connector.connect(user=mysqluser, password=mysqlpwd, host=dbhost, database=mysqldb, autocommit=True)
-
-        return db
-    except Exception as e:
-        raise ("error: %s - %s - %s" % (dbhost, mysqldb, e))
-
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = connect_db()
-    return db
-
 
 
 def do_query(cursor, query, *params):

@@ -1,10 +1,13 @@
 import functools
 
-import werkzeug.security
+from flask import (
+    Blueprint, current_app, g, flash, redirect, render_template, request, session, url_for
+)
+from werkzeug.security import check_password_hash
 
-from flask import current_app, flash, redirect, render_template, request, session, url_for
+auth = Blueprint('auth', __name__, template_folder='templates')
 
-import config
+# import config
 
 #
 # User accounts
@@ -24,7 +27,7 @@ class User(object):
         self.email = email
 
     def check_password(self, password):
-        return werkzeug.security.check_password_hash(self.pwhash, password)
+        return check_password_hash(self.pwhash, password)
 
 
 #
@@ -33,7 +36,7 @@ class User(object):
 
 def login_required(f):
     # pass through if authentication is disabled
-    if getattr(config, 'DISABLE_AUTH', False):
+    if g and getattr(current_app.config, 'DISABLE_AUTH', False):
         return f
 
     # otherwise redirect to login page if unauthenticated
@@ -66,6 +69,11 @@ def handle_login(login_setup, default_redirect):
 
     return render_template('auth/login.html')
 
+@auth.route('/logout')
+@login_required
+def logout():
+    return handle_logout(lambda x: None)
+
 
 def handle_logout(logout_teardown):
     username = session.pop('username', None)
@@ -73,3 +81,4 @@ def handle_logout(logout_teardown):
         logout_teardown(username)
         flash('Goodbye, ' + username + '.', 'notice')
     return redirect(url_for('auth.login'))
+
