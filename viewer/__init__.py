@@ -23,9 +23,6 @@ from flask import Flask, Blueprint, flash, g, redirect, render_template, request
 
 from urllib.parse import unquote
 
-# TODO: Figure out how this Blueprints thing works
-# from auth import auth
-
 REC_CSV_TRANS = str.maketrans({
     '\n': ' ',
     '\r': ' ',
@@ -47,7 +44,7 @@ def create_app(test_config=None):
         SECRET_KEY=os.urandom(128),
         DEBUG=True,
     )
-    
+
     from viewer.blueprints.auth import auth
     app.register_blueprint(auth)
 
