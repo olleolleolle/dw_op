@@ -35,7 +35,7 @@ def init_app(app):
 def init_db():
     db = get_db()
 
-    with current_app.open_resource('sql-init/dev-db2.sql') as f:
+    with current_app.open_resource('sql-init/dev-db.sql') as f:
         db.executescript(f.read().decode('utf8'))
 
 
