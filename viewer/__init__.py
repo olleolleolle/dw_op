@@ -410,7 +410,7 @@ def create_app(test_config=None):
                     else:
                         data['persona'] = do_query_value(c, 'SELECT name FROM personae WHERE id =  %s', persona_id)
                         data['awards'] = do_query(c, 'SELECT award_types.name, awards.date, award_types.precedence FROM personae AS p1 JOIN personae AS p2 ON p1.person_id = p2.person_id JOIN awards ON p2.id = awards.persona_id JOIN award_types ON awards.type_id = award_types.id  WHERE p1.id = %s ORDER BY awards.date, award_types.name', persona_id)
-                    unawards_query = '''SELECT award_types.id, award_types.name, CASE award_types.group_id WHEN 1 THEN 2 ELSE award_types.group_id END AS group_id, award_types.precedence, tooltip
+                    unawards_query = '''SELECT award_types.id, award_types.name, CASE award_types.group_id WHEN 1 THEN 2 ELSE award_types.group_id END AS group_id, award_types.precedence, award_types.tooltip
                                         FROM award_types 
                                             LEFT JOIN (SELECT award_types.id 
                                                     FROM personae AS p1 
