@@ -1,6 +1,12 @@
-# Set up your local environment (this assumes a mac terminal environment)
+# dw_op
 
-## Set up database
+This repository contains the code for the Drachenwald Order of Precedence. It is a Flask app, programmed in Python.
+
+The repository does not contain any personal information, and has only database structure, and test data in it.
+
+## Set up your local environment (this assumes a mac terminal environment)
+
+### Set up database
 
 Create a sqlite file named op.sqlite with the contents of the op.sqlite.sql file, then spool that data over to MySQL. Our application's history began with sqlite, and is now using MySQL.
 
@@ -18,7 +24,7 @@ With a virtualenv running:
 python transferdb.py
 ```
 
-## Start the Flask app
+### Start the Flask app
 
 ```shell
 pip install virtualenv
@@ -32,7 +38,7 @@ pip install -r requirements.txt
 flask --app viewer run
 ```
 
-### Alternative for `flask --app viewer run`:
+#### Alternative for `flask --app viewer run`:
 
 ```shell
 export FLASK_APP=viewer.py
@@ -42,7 +48,7 @@ flask run
 ```
 
 
-# Local docker
+## Local docker
 
 ```
 docker-compose up
@@ -112,7 +118,7 @@ askja:dw_op hennar$
 
 </details>
 
-## Diagnose and troubleshoot
+### Diagnose and troubleshoot
 
 The database container, upon not having a database, reads the files in `sql-init/` and execute that SQL.
 
