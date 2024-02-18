@@ -61,7 +61,7 @@
           <label class="form-check-label" for="award_{{i[0]}}">
             <li class="list-group-item" {% if i[4] != None %}data-bs-toggle="tooltip" data-bs-title="{{i[4]}}"{% endif %}>
               <input class="form-check-input me-1" id="award_{{i[0]}}" name="awards[]" value="{{i[0]}}" type="checkbox">
-              {{i[1]}}
+              {{i[1]}}{% if i[4] != None %}<span class="material-icons">info</span>{% endif %}
             </li>
           </label>
         {% endfor %}
@@ -72,7 +72,7 @@
     <div class="my-3"><strong>Why?</strong></div>
     <textarea class="form-control" id="recommendation" name="recommendation"  style="height: 100px" placeholder="Why do they deserve this award? More information makes it easier for royals to grant awards" required></textarea>
 
-    <div class="my-3"><strong>Which Crowns should receive your recommendation?</strong></div>
+    <div class="my-3"><strong>Which Crown/Coronet/Baronials should receive your recommendation?</strong></div>
 
     <ul class="list-group col-12 col-md-8 col-lg-6">
       {% for k, v in data['sendto'].items() %}
