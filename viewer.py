@@ -606,7 +606,11 @@ def recommend():
 
             c = get_db().cursor()
             crown_names = [n[0] for n in do_query(c, 'SELECT name FROM groups WHERE id IN ({})'.format(','.join(['%s'] * len(crowns))), *crowns)]
-            award_names = [n[0] for n in do_query(c, 'SELECT name FROM award_types WHERE id IN ({})'.format(','.join(['%s'] * len(awards))), *awards)]
+
+            award_names = "No awards selected"  
+            if (len(awards) > 0):
+                award_names_rst = [n[0] for n in do_query(c, 'SELECT name FROM award_types WHERE id IN ({})'.format(','.join(['%s'] * len(awards))), *awards)]
+                award_names= ', '.join(award_names_rst)
 
             data = {
                 'your_forename': your_forename,
@@ -643,7 +647,7 @@ def recommend():
                 'time_served': stripped(request.form, 'time_served'),
                 'gender': stripped(request.form, 'gender'),
                 'branch': stripped(request.form, 'branch'),
-                'award_names': ', '.join(award_names),
+                'award_names': award_names,
                 'recommendation': rec,
                 'recommendation_sanitized': rec_sanitized,
                 'events': stripped(request.form, 'events'),
@@ -715,11 +719,9 @@ Date | Recommender's Real Name | Recommender's SCA Name | Recommender's Email Ad
             cred_info = app.config['GOOGLE_CRED']
             
             credentials = service_account.Credentials.from_service_account_info(info=cred_info, scopes=scopes)
-             
             service = build('gmail', 'v1', credentials=credentials.with_subject('recommendations@drachenwald.sca.org'))
             message = EmailMessage()
             message.set_content(body)
-            #TODO: restore this to original
             message['To'] = to
             #message['To'] = [your_email]
             message['Cc'] = [your_email]
@@ -732,9 +734,9 @@ Date | Recommender's Real Name | Recommender's SCA Name | Recommender's Email Ad
                 }
             # pylint: disable=E1101
             
-            send_message = (service.users().messages().send
-                                (userId="me", body=create_message).execute())
-
+            #send_message = (service.users().messages().send
+            #                    (userId="me", body=create_message).execute())
+            data["body"] = body
             state = 4
 
     return render_template(
