@@ -8,19 +8,19 @@
 
     <ul class="list-group">
 
-      {% for i in results | reverse -%}
+      {% for persona_name, award_name, awarded_on, crowns, event_name in results | reverse -%}
 
-      <a class="list-group-item list-group-item-action" href="{{ url_for('persona', name=i[0]) }}">
+      <a class="list-group-item list-group-item-action" href="{{ url_for('persona', name=persona_name) }}">
         <div class="row w-100">
-          <div class="col-4 col-lg-3 col-xl-3">{{i[0]}}</div>
-          <div class="col-5 col-lg-4 col-xl-3 text-start ps-3">{{i[1]}}</div>
-          <div class="col-3 col-lg-2 col-xl-2 text-start ps-3">{{i[2]}}</div>
-          <div class="d-none d-lg-inline col-lg-3 col-xl-2 text-end">{{i[3]}}</div>
-          <div class="d-none d-xl-inline col-xl-2 text-end text-muted">{{i[4]}}</div>
+          <div class="col-4 col-lg-3 col-xl-3">{{persona_name}}</div>
+          <div class="col-5 col-lg-4 col-xl-3 text-start ps-3">{{award_name}}</div>
+          <div class="col-3 col-lg-2 col-xl-2 text-start ps-3">{{awarded_on}}</div>
+          <div class="d-none d-lg-inline col-lg-3 col-xl-2 text-end">{{awarded_on}}</div>
+          <div class="d-none d-xl-inline col-xl-2 text-end text-muted">{{crowns}}</div>
         </div>
         <div class="row d-xl-none">
-          <div class="col-6 d-lg-none text-muted"><small>Awarded by {{i[3]}}</small></div>
-          <div class="col-6 col-lg-12 d-xl-none text-end text-lg-start text-muted"><small>{{i[4]}}</small></div>
+          <div class="col-6 d-lg-none text-muted"><small>Awarded by {{crowns}}</small></div>
+          <div class="col-6 col-lg-12 d-xl-none text-end text-lg-start text-muted"><small>{{event_name}}</small></div>
         </div>
       </a>
 

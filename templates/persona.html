@@ -68,21 +68,21 @@
   <div class="my-3">
 
     <div class="accordion col-12 col-md-10 col-lg-10 mx-auto" id="awardlist">
-      {% for i in awards -%}
+      {% for persona_name, award_name, awarded_on, crowns_name, award_event, award_precedence in awards -%}
         <div class="accordion-item">
           <div class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{i[1] | urlencode}}-{{i[2] | urlencode}}" aria-expanded="false" aria-controls="collapse-{{i[1] | urlencode}}-{{i[2] | urlencode}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{award_name | urlencode}}-{{awarded_on | urlencode}}" aria-expanded="false" aria-controls="collapse-{{award_name | urlencode}}-{{awarded_on | urlencode}}">
               <div class="row w-100">
-                <div class="col-8 col-lg-6 col-xl-4"><h5>{{i[1]}}</h5></div>
-                <div class="d-none d-xl-inline col-xl-3 text-end text-muted">{{i[4]}}</div>
-                <div class="d-none d-lg-inline col-lg-3 col-xl-3 text-end">{{i[3]}}</div>
-                <div class="col-4 col-lg-3 col-xl-2 text-start ps-3">{{i[2]}}</div>
+                <div class="col-8 col-lg-6 col-xl-4"><h5>{{award_name}}</h5></div>
+                <div class="d-none d-xl-inline col-xl-3 text-end text-muted">{{award_event}}</div>
+                <div class="d-none d-lg-inline col-lg-3 col-xl-3 text-end">{{crowns_name}}</div>
+                <div class="col-4 col-lg-3 col-xl-2 text-start ps-3">{{awarded_on}}</div>
               </div>
             </button>
           </div>
-          <div id="collapse-{{i[1] | urlencode}}-{{i[2] | urlencode}}" class="accordion-collapse collapse p-3" data-bs-parent="#awardlist">
-            Awarded at <strong>{{i[4]}}</strong> by <strong>{{i[3]}}</strong><br />
-            under the name <strong>{{i[0]}}</strong>
+          <div id="collapse-{{award_name | urlencode}}-{{awarded_on | urlencode}}" class="accordion-collapse collapse p-3" data-bs-parent="#awardlist">
+            Awarded at <strong>{{award_event}}</strong> by <strong>{{crowns_name}}</strong><br />
+            under the name <strong>{{persona_name}}</strong>
           </div>
         </div>
       {% endfor %}

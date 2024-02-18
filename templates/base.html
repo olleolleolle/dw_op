@@ -9,16 +9,12 @@
     <meta property="og:image" content="{{ url_for('static', filename='images/default-banner.jpg') }}" />
     <meta property="og:title" content="{{title_string}}" />
 
-    {% if config.ENV == 'development' %}
-
+    {% if config.DEBUG %}
     <meta name="robots" content="noindex">
-
     {% endif %}
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="{{ url_for('static', filename='assets/css/main.css') }}" rel="stylesheet" />
-    
     <script src="{{ url_for('static', filename='assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
 
     <script defer src="{{ url_for('static', filename='assets/fontawesome/brands.min.js') }}"></script>
@@ -43,7 +39,7 @@
 
     <header id="header">
 
-      {% if config.ENV == 'development' %}
+      {% if config.DEBUG %}
 
         <div class="bg-warning">
           <div class="container text-center">
@@ -74,7 +70,7 @@
     {% endblock %}
 
     <div class="banner" style="background-image: url('{{ url_for('static', filename='images/default-banner.jpg') }}');">
-      <div class="container"> 
+      <div class="container">
         <h1 class="display-5 pt-5">{{ title_string }}</h1>
         <h3 class="pb-5">{% block subtitle %}{% endblock %}</h3>
       </div>

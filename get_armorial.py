@@ -1,6 +1,8 @@
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+from googleapiclient.http import MediaIoBaseDownload
+import io
 import config
 
 def get_gdrive_service():
@@ -34,9 +36,6 @@ credentials = service_account.Credentials.from_service_account_info(info=cred_in
 service = build('drive', 'v3', credentials=credentials)
 page_token = None
 
-parents = ['1uaESfAUtJbO8eXhbdYOjOShZ_ub2QccT']
-
-
 response = service.files().list(q="parents in '1uaESfAUtJbO8eXhbdYOjOShZ_ub2QccT'",
                                             corpora='allDrives',
                                             supportsAllDrives=True,
@@ -45,12 +44,11 @@ response = service.files().list(q="parents in '1uaESfAUtJbO8eXhbdYOjOShZ_ub2QccT
                                                    'files(id, name,parents,mimeType,webContentLink)',
                                             pageToken=page_token).execute()
 
-results = response
-items = results.get('files', [])
-import io
-from googleapiclient.http import MediaIoBaseDownload
+items = response.get('files', [])
 for item in items:
-    if item['mimeType'] == 'image/png':
+    print(item['name'])
+    print(item['mimeType'])
+    if (item['mimeType'] == 'image/png') or (item['mimeType'] == 'image/svg+xml') :
         fileId = item['id']
         rst = service.files().get_media(fileId = fileId)
         file = io.BytesIO()
@@ -59,7 +57,7 @@ for item in items:
         while done is False:
             status, done = downloader.next_chunk()
         # Write the stuff
+        print("%s/%s" %(config.ARMORIAL_PATH,item['name'].strip()))
         with open("%s/%s" %(config.ARMORIAL_PATH,item['name'].strip()), "wb") as f:
             f.write(file.getbuffer())
             #print(file.getvalue())
-
