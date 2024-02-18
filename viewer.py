@@ -113,13 +113,42 @@ def persona(name):
     c = get_db().cursor()
     import urllib.parse
     uname = urllib.parse.unquote(name)
-    person_id, has_modname, region, blazon, emblazon = do_query(c, 'SELECT people.id, people.surname IS NOT NULL OR people.forename IS NOT NULL, regions.name, people.blazon, people.emblazon FROM personae JOIN people ON personae.person_id = people.id JOIN regions ON people.region_id = regions.id WHERE personae.name = %s', uname)[0]
+    q = """SELECT people.id, 
+		people.surname IS NOT NULL OR people.forename IS NOT NULL, 
+		regions.name, 
+		people.blazon, 
+		people.emblazon,
+		if(display_pronouns, pronouns, "") as pronouns,
+		if(display_title, title, "") as title  
+	FROM personae 
+		JOIN people ON personae.person_id = people.id 
+		JOIN regions ON people.region_id = regions.id 
+		LEFT JOIN titles on personae.id = titles.persona_id
+					and titles.main = True
+	WHERE personae.name = %s"""
+    person_id, has_modname, region, blazon, emblazon, pronouns, title = do_query(c, q, uname)[0]
 
     official_id, official_name = do_query(c, 'SELECT id, name FROM personae WHERE person_id = %s AND official = 1', person_id)[0];
 
     other = do_query(c, 'SELECT name FROM personae WHERE person_id = %s AND id != %s ORDER BY name', person_id, official_id);
     if other:
         other = [f[0] for f in other]
+
+    #alt_titles = do_query(c, "select title, name  as alt from personae join titles on personae.id = titles.persona_id where display_title = True and COALESCE(main,False) != True and person_id = %", person_id)
+    #SELECT concat(if(display_title, concat(title, " "), ""), name) as alt, display_title, main, official, personae.id, person_id FROM personae left join titles on personae.id = titles.persona_id  
+# WHERE ( person_id = 2699 AND not (personae.id = 3335 and main = True) ) 
+# or (person_id = 1856 and personae.id != 1840)-- case 1, alt names
+# or (person_id = 1856 and personae.id = 1840 and COALESCE(main,False) != True) -- case 2, alt titles for main persona
+    alt_query = 'SELECT concat(if(display_title, concat(title, " "), ""), name) as alt FROM personae left join titles on personae.id = titles.persona_id WHERE ( person_id = 2699 AND not (personae.id = 3335 and main = True) )'
+    alt_query = """SELECT concat(if(display_title, concat(title, " "), ""), name) as alt 
+                   FROM personae 
+                        left join titles on personae.id = titles.persona_id 
+                   WHERE (person_id = %s and personae.id != %s)-- case 1, alt names
+                         or (person_id = %s and personae.id = %s and COALESCE(main,False) != True) -- case 2, alt titles for main persona
+                   ORDER BY name"""
+    alt_titles = do_query(c, alt_query, person_id, official_id, person_id, official_id);
+    if alt_titles:
+        alt_titles = [f[0] for f in alt_titles]	
 
     if emblazon:
         emblazon = url_for('static', filename='images/arms/' + emblazon)
@@ -138,8 +167,10 @@ def persona(name):
         awards=awards,
         persona_id=official_id,
         arms_path=emblazon,
-        highest=highest
-
+        highest=highest,
+	pronouns=pronouns,
+        title=title,
+	alt_titles=alt_titles
     )
 
 

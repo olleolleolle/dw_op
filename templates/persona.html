@@ -10,16 +10,20 @@
       <div class="col-12 col-sm-8 col-md-10 text-center text-sm-start">
 
         <p>
-          <b>{{ name }}</b>, whose modern name is {% if not has_modname %}not{% endif %}
+          <b>{{ title }} {{ name }}</b>{% if pronouns != "" %} ({{ pronouns }}){% endif %}, whose modern name is {% if not has_modname %}not{% endif %}
           on file.
         </p>
 
-        {% if other %}
-        <p>
-          Also known as {{ ', '.join(other) }}
-        </p>
-        {% endif %}
+	{% if alt_titles != "None" %}
+	Also known as: <ul>
+		{% for alt in alt_titles %}
+		<li>{{ alt }}</li>
+		{% endfor %}
+	</ul>
 
+	{% endif %} 
+	<p>
+	
         {% if region %}
           <p>Most recently of <b>{{ region }}</b>.</p>
         {% endif %}
