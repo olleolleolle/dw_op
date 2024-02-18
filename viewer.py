@@ -134,19 +134,7 @@ def persona(name):
     if other:
         other = [f[0] for f in other]
 
-    #alt_titles = do_query(c, "select title, name  as alt from personae join titles on personae.id = titles.persona_id where display_title = True and COALESCE(main,False) != True and person_id = %", person_id)
-    #SELECT concat(if(display_title, concat(title, " "), ""), name) as alt, display_title, main, official, personae.id, person_id FROM personae left join titles on personae.id = titles.persona_id  
-# WHERE ( person_id = 2699 AND not (personae.id = 3335 and main = True) ) 
-# or (person_id = 1856 and personae.id != 1840)-- case 1, alt names
-# or (person_id = 1856 and personae.id = 1840 and COALESCE(main,False) != True) -- case 2, alt titles for main persona
-    alt_query = 'SELECT concat(if(display_title, concat(title, " "), ""), name) as alt FROM personae left join titles on personae.id = titles.persona_id WHERE ( person_id = 2699 AND not (personae.id = 3335 and main = True) )'
-    alt_query = """SELECT concat(if(display_title, concat(title, " "), ""), name) as alt 
-                   FROM personae 
-                        left join titles on personae.id = titles.persona_id 
-                   WHERE (person_id = %s and personae.id != %s)-- case 1, alt names
-                         or (person_id = %s and personae.id = %s and COALESCE(main,False) != True) -- case 2, alt titles for main persona
-                   ORDER BY name"""
-    alt_titles = do_query(c, alt_query, person_id, official_id, person_id, official_id);
+    alt_titles = do_query(c, "select alt from alts where person_id = %s", person_id)
     if alt_titles:
         alt_titles = [f[0] for f in alt_titles]	
 
