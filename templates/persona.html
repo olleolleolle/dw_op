@@ -13,8 +13,8 @@
           <b>{{ title }} {{ name }}</b>{% if pronouns != "" %} ({{ pronouns }}){% endif %}, whose modern name is {% if not has_modname %}not{% endif %}
           on file.
         </p>
-
-	{% if alt_titles != "None" %}
+	
+	{% if alt_titles|length > 0 %}
 	Also known as: <ul>
 		{% for alt in alt_titles %}
 		<li>{{ alt }}</li>
