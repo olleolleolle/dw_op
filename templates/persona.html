@@ -21,7 +21,7 @@
 	{% endif %}
 
 
-	<li> Modern name on file: <b>{% if not has_modname %}No{% else %}Yes{% endif %}</b>
+	<li> Modern name: <b>is {% if not has_modname %}not{% else %} {% endif %} on file</b>
 	</ul>
 	<ul>
 	{% if alt_titles|length > 0 %}
