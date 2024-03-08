@@ -10,25 +10,32 @@
       <div class="col-12 col-sm-8 col-md-10 text-center text-sm-start">
 
         <p>
-          <b>{{ title }} {{ name }}</b>{% if pronouns != "" %} ({{ pronouns }}){% endif %}, whose modern name is {% if not has_modname %}not{% endif %}
-          on file.
-        </p>
-	
-	{% if alt_titles|length > 0 %}
-	Also known as: <ul>
-		{% for alt in alt_titles %}
-		<li>{{ alt }}</li>
-		{% endfor %}
+          <b>{{ title }} {{ name }}</b>{% if pronouns != "" %} ({{ pronouns }}){% endif %}
+</p>
+<p> 
+	<ul>
+	{% if region %}
+        <li>
+		  Region: <b> {{ region }} </b>
+        </li>
+	{% endif %}
+
+
+	<li> Modern name on file: <b>{% if not has_modname %}No{% else %}Yes{% endif %}</b>
 	</ul>
-
+	<ul>
+	{% if alt_titles|length > 0 %}
+	<li>Alternative title(s): {{ ', '.join(alt_titles) }} 
+	</li>
 	{% endif %} 
-	<p>
+	<br\>
 	
-        {% if region %}
-          <p>Most recently of <b>{{ region }}</b>.</p>
-        {% endif %}
-
-        {% if highest %}
+	{% if other | length > 0 %}
+	<li>Also known as: {{ ', '.join(other) }} 
+	</li>
+	{% endif %} 
+</p>
+                {% if highest %}
           <p>
             Highest award received is
             <b>{{ highest[0][1] }}</b>

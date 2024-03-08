@@ -130,13 +130,19 @@ def persona(name):
 
     official_id, official_name = do_query(c, 'SELECT id, name FROM personae WHERE person_id = %s AND official = 1', person_id)[0];
 
-    other = do_query(c, 'SELECT name FROM personae WHERE person_id = %s AND id != %s ORDER BY name', person_id, official_id);
+    other = do_query(c, 'SELECT name FROM personae WHERE person_id = %s AND id != %s ORDER BY id desc', person_id, official_id);
     if other:
         other = [f[0] for f in other]
 
     alt_titles = do_query(c, "select alt from alts where person_id = %s", person_id)
     if alt_titles:
         alt_titles = [f[0] for f in alt_titles]	
+
+    alt_titles = do_query(c, "select title from titles where persona_id = %s and COALESCE(main,0) !=1 and coalesce(display_title,0) order by id asc", official_id)
+    if alt_titles:
+        alt_titles = [f[0] for f in alt_titles]	
+    
+    #alt_titles = ["select title from titles where persona_id = %s and COALESCE(main,0) !=1 and coalesce(display_title,0)", official_id]
 
     if emblazon:
         emblazon = url_for('static', filename='images/arms/' + emblazon)
